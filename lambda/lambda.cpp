@@ -77,6 +77,17 @@ private:
   int _guestIdToFind;
 };
 
+bool funcIdComparator(mdw::bom::Guest& iGuestToTest) // does not work with default param such as int iGuestIdToFind = 3
+{
+  return iGuestToTest.id == 3;
+}
+
+// JPR p49 - new func declaration synthax
+auto funcIdComparatorNew(mdw::bom::Guest& iGuestToTest) -> bool
+{
+  return iGuestToTest.id == 3;
+}
+
 }
 }
 
@@ -103,65 +114,80 @@ void fillABooking(mdw::bom::HotelBooking& iHotelBooking) // ref also here, other
 
 }
 
-
 int main()
 {
+
+  // Prepare data
   mdw::bom::HotelBooking hotelBooking("12345678");
   helper::fillABooking(hotelBooking);
 
-   ////// JPR p46
+   // JPR p46 find_if synthax
    // find_if(InputIterator first, InputIterator last, UnaryPredicate pred)
 
+   ///////////////////////
+   // Use of a functor  //
+   ///////////////////////
+   { // block for variable naming
+
    // Using a ptr to a function
+   auto res0_0 = find_if(hotelBooking.guests.begin(), hotelBooking.guests.end(),
+                       mdw::tools::funcIdComparator); // same if doing using '&' here: &mdw::tools::funcIdComparator
+   std::cout << *res0_0;
+
+   // [New synthax] Using a ptr to a function
+   auto res0_1 = find_if(hotelBooking.guests.begin(), hotelBooking.guests.end(),
+                       mdw::tools::funcIdComparatorNew); // same if doing using '&' here: &mdw::tools::funcIdComparator
+   std::cout << *res0_1;
 
    // Using an object functor
-   auto res = find_if(hotelBooking.guests.begin(), hotelBooking.guests.end(),
+   auto res0_2 = find_if(hotelBooking.guests.begin(), hotelBooking.guests.end(),
                       mdw::tools::IdComparator(3));
-   std::cout << *res;
+   std::cout << *res0_2;
 
-   // Using boost::bind
+   }
 
-  // [1] Using a lambda expression (C++11)
-   auto res2 = find_if(hotelBooking.guests.begin(), hotelBooking.guests.end(),
+   /////////////////////////
+   // Use of boost::bind  //
+   /////////////////////////
+   {
+   // TODO
+   auto res0 = 1;
+   }
+
+   //////////////////////////
+   // C++ 11 lamdba based  //
+   //////////////////////////
+   {
+   // [1] Using a lambda expression (C++11)
+   auto res0 = find_if(hotelBooking.guests.begin(), hotelBooking.guests.end(),
                       [] (mdw::bom::Guest& g) -> bool
                       {
-                        if(g.id == 3)
-                        {
-                          return true;
-                        }
-                        return false;
+                        return g.id == 3; // <=> if(g.id == 3) { return true;} return false;
                       }
                );
-   std::cout << *res2;
+   std::cout << *res0;
 
    // [2] Using a lamdba with a capture of a "more global" variable
    auto guestIdToFind = 3;
-   auto res3 = find_if(hotelBooking.guests.begin(), hotelBooking.guests.end(),
+   auto res1 = find_if(hotelBooking.guests.begin(), hotelBooking.guests.end(),
                       [&guestIdToFind] (mdw::bom::Guest& g) -> bool
                       {
-                        if(g.id == guestIdToFind)
-                        {
-                          return true;
-                        }
-                        return false;
+                        return g.id == guestIdToFind;
                       }
                );
-   std::cout << *res3;
+   std::cout << *res1;
 
    // [3] Naming a lamdba
    auto guestIdToFind_ = 3;
    auto myLamdba = [&guestIdToFind_] (mdw::bom::Guest& g) -> bool
                    {
-                     if(g.id == guestIdToFind_)
-                     {
-                       return true;
-                     }
-                     return false;
+                     return g.id == guestIdToFind_;
                    };
 
-   auto res4 = find_if(hotelBooking.guests.begin(), hotelBooking.guests.end(),
+   auto res2 = find_if(hotelBooking.guests.begin(), hotelBooking.guests.end(),
                        myLamdba
                );
-   std::cout << *res4;
+   std::cout << *res2;
+   }
 
 }
