@@ -112,8 +112,56 @@ int main()
    ////// JPR p46
    // find_if(InputIterator first, InputIterator last, UnaryPredicate pred)
 
-   auto res = find_if(hotelBooking.guests.begin(), hotelBooking.guests.end(), mdw::tools::IdComparator(3));
+   // Using a ptr to a function
+
+   // Using an object functor
+   auto res = find_if(hotelBooking.guests.begin(), hotelBooking.guests.end(),
+                      mdw::tools::IdComparator(3));
    std::cout << *res;
 
-   
+   // Using boost::bind
+
+  // [1] Using a lambda expression (C++11)
+   auto res2 = find_if(hotelBooking.guests.begin(), hotelBooking.guests.end(),
+                      [] (mdw::bom::Guest& g) -> bool
+                      {
+                        if(g.id == 3)
+                        {
+                          return true;
+                        }
+                        return false;
+                      }
+               );
+   std::cout << *res2;
+
+   // [2] Using a lamdba with a capture of a "more global" variable
+   auto guestIdToFind = 3;
+   auto res3 = find_if(hotelBooking.guests.begin(), hotelBooking.guests.end(),
+                      [&guestIdToFind] (mdw::bom::Guest& g) -> bool
+                      {
+                        if(g.id == guestIdToFind)
+                        {
+                          return true;
+                        }
+                        return false;
+                      }
+               );
+   std::cout << *res3;
+
+   // [3] Naming a lamdba
+   auto guestIdToFind_ = 3;
+   auto myLamdba = [&guestIdToFind_] (mdw::bom::Guest& g) -> bool
+                   {
+                     if(g.id == guestIdToFind_)
+                     {
+                       return true;
+                     }
+                     return false;
+                   };
+
+   auto res4 = find_if(hotelBooking.guests.begin(), hotelBooking.guests.end(),
+                       myLamdba
+               );
+   std::cout << *res4;
+
 }
