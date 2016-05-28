@@ -18,5 +18,14 @@ install:
 
 ### End of for C++11
 
+### For boost  lib
+# https://devsector.wordpress.com/2014/11/09/github-continuous-integration-with-travis-ci/#boost
+
+before_script:
+  - sudo apt-get update -qq
+  - sudo apt-get install libboost-dev
+
+### End for boost
+
 script:
   - make
