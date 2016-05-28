@@ -1,5 +1,5 @@
 # http://gl.developpez.com/tutoriel/outil/makefile/ (changed to CXX)
-CXX = g++
+CXX = g++-4.8
 CXXFLAGS = -W -Wall -ansi -pedantic -std=c++11
 EXEC = lambda
 

@@ -1,4 +1,4 @@
-CXX = g++
+CXX = g++-4.8
 CXXFLAGS = -W -Wall -ansi -pedantic -std=c++11
 EXEC = iter_facade_ex
 
