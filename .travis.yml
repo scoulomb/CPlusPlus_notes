@@ -28,4 +28,11 @@ before_script:
 ### End for boost
 
 script:
-  - make
+  - make && make run
+
+notifications:
+  email:
+    recipients:
+      - sylvaincoulombel@gmail.com
+    on_success: always
+    on_failure: always

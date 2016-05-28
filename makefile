@@ -17,3 +17,6 @@ mrproper:
 	$(MAKE) -C $(Folder_Lambda) mrproper	
 	$(MAKE) -C $(Folder_Iterator) mrproper
 
+run:
+	$(MAKE) -C $(Folder_Lambda) run	
+	$(MAKE) -C $(Folder_Iterator) run

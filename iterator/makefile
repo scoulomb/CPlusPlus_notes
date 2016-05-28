@@ -16,3 +16,6 @@ clean:
 
 mrproper: clean	
 	rm -rf $(EXEC)
+
+run: $(EXEC) 
+	./iter_facade_ex

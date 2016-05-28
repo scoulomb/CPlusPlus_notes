@@ -19,3 +19,7 @@ clean:
 #clean on same line
 mrproper: clean	
 	rm -rf $(EXEC)
+
+# http://stackoverflow.com/questions/9123666/command-line-arguments-for-a-program-run-in-a-makefile
+run: $(EXEC) 
+	./lambda
