@@ -77,6 +77,7 @@ private:
   int _guestIdToFind;
 };
 
+//read scott meyers - all todo clear in this file ;) OKOK YES OKOK 
 bool funcIdComparator(mdw::bom::Guest& iGuestToTest) // does not work with default param such as int iGuestIdToFind = 3
 {
   return iGuestToTest.id == 3;
@@ -151,7 +152,7 @@ int main()
    /////////////////////////
    {
    // TODO
-   auto res0 = 1;
+   // auto res0 = 1;
    }
 
    //////////////////////////
