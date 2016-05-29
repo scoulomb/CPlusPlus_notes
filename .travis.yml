@@ -28,7 +28,7 @@ before_script:
 ### End for boost
 
 script:
-  - make && make run
+  - ./run.sh
 
 notifications:
   email:

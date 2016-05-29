@@ -6,5 +6,6 @@ This repo contains my personnal C++ Tests
 ```sh
 $ git clone https://github.com/scoulomb/CPlusPlus_notes.git
 $ cd CPlusPlus_notes
-$ make
+$ chmod +x run.sh
+$ ./run.sh
 ```

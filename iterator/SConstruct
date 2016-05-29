@@ -1,0 +1,19 @@
+# http://stackoverflow.com/questions/13179316/how-to-tell-scons-to-use-the-c11-standard
+env=Environment(CPPPATH='/usr/include/boost/',
+                CPPDEFINES=[],
+                LIBS=[],
+                CXXFLAGS="-std=c++11"
+                )
+
+# ONLY THIS LINE NEEDS TO BE ADAPTED
+env.Program(target = 'main', source = ["iter_facade_ex.cpp"])
+
+# http://stackoverflow.com/questions/11070339/scons-running-program-after-compilation
+# use $SOURCE here to be able to launch from top directory
+
+test = Command( target = "testoutput",
+                source = "./main",
+                action = ["$SOURCE > $TARGET", 
+                          "cat $TARGET"] )
+
+AlwaysBuild( test )
