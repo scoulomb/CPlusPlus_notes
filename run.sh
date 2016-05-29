@@ -6,6 +6,7 @@ set -e
 find . -mindepth 2 -name "SConstruct" | python generateSConstruct.py
 
 # Call scons with the generated top level SConstruct file (will call SConstrcut files in subdirectories building and runnnig each sub project) 
+export CXX="g++-4.8" # build with that version of gcc which supports C++11
 scons 
 
 # Clean 
