@@ -8,18 +8,18 @@ env=Environment(CPPPATH='/usr/include/boost/',
                 ENV = os.environ,
                 # to compile with compiler defined in repoRoot/.run.sh (for C++11 Support)
                 # http://stackoverflow.com/questions/2944251/changing-default-c-compiler-in-linux-using-scons
-                CXX = os.environ.get('CXX','default'), 
+                CXX = os.environ.get('CXX',"g++"), 
                 CXXFLAGS="-std=c++11"
                 )
 
 # ONLY THIS LINE NEEDS TO BE ADAPTED
-env.Program(target = 'main', source = ["iter_facade_ex.cpp"])
+env.Program(target = os.getcwd() + "/build/main", source = ["iter_facade_ex.cpp"])
 
 # http://stackoverflow.com/questions/11070339/scons-running-program-after-compilation
 # use $SOURCE here to be able to launch from top directory
 
 test = Command( target = "testoutput",
-                source = "./main",
+                source = os.getcwd() + "/build/main", # In a subdirectory ./main is not recognized so we use getcwd() and a build dir
                 action = ["$SOURCE > $TARGET", 
                           "cat $TARGET"] )
 
