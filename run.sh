@@ -1,3 +1,7 @@
+#!/bin/bash
+set -e
+# Any subsequent(*) commands which fail will cause the shell script to exit immediately
+
 # Generate top level SConstruct file
 find . -mindepth 2 -name "SConstruct" | python generateSConstruct.py
 
