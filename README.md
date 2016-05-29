@@ -24,5 +24,5 @@ $ ./run.sh
 ```sh
 $ export CXX="g++-4.8" (optional, if not set default is g++)
 $ scons # build and run
-scons -c # clean
+$ scons -c # clean
 ```
