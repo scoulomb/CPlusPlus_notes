@@ -128,7 +128,7 @@ We can see that better match rule for effective RValue (const has no real meanin
 T&& > const T&& > const T&
 
 It can surprise that for RValue :
-- in space with non RValue function, const T& is a better match than T&
+- in space with non RValue function, const T& is a match. T& is not (see force::ref::f("hello"))
 - in space with RValue function, T&& is a better match than const T&&
 
 But it makes sense in first case string is const so it matches the const Version
