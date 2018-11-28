@@ -4,4 +4,9 @@
 *.settings.xml
 *~
 .sconsign.dblite
-*.gch
+*.gch 
+*.o
+*build*
+*testoutput*
+*sonar*
+

@@ -1,0 +1,20 @@
+import os
+
+# http://stackoverflow.com/questions/13179316/how-to-tell-scons-to-use-the-c11-standard
+env=Environment(CPPPATH='/usr/include/boost/',
+                CPPDEFINES=[],
+                LIBS=[],
+                # to retrieve environment variable
+                ENV = os.environ,
+                # to compile with compiler defined in repoRoot/.run.sh (for C++11 Support)
+                # http://stackoverflow.com/questions/2944251/changing-default-c-compiler-in-linux-using-scons
+                CXX = os.environ.get('CXX',"g++"), 
+                CXXFLAGS="-std=c++11"
+                )
+
+# ONLY THIS LINE NEEDS TO BE ADAPTED
+# Here build timer shared object, ".o" is used directly by dependencies
+# Otherwise warning is ".o" is built twice by two dependencies
+# http://scons.org/doc/1.2.0/HTML/scons-user/x288.html
+env.SharedObject(target = 'timer.o', source = 'timer.cpp')
+

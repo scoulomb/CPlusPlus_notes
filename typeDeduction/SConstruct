@@ -1,0 +1,28 @@
+import os
+
+# http://stackoverflow.com/questions/13179316/how-to-tell-scons-to-use-the-c11-standard
+env=Environment(
+                CPPPATH= os.environ.get('HOME') + '/boost_1_61_0/', # type index include in last boost,  sudo apt get will not work so by hand and path here
+                CPPDEFINES=[],
+                LIBS=[],
+                # to retrieve environment variable
+                ENV = os.environ,
+                # to compile with compiler defined in repoRoot/.run.sh (for C++11 Support)
+                # http://stackoverflow.com/questions/2944251/changing-default-c-compiler-in-linux-using-scons
+                CXX = os.environ.get('CXX',"g++"), 
+                CXXFLAGS="-std=c++11"
+                )
+
+# ONLY THIS LINE NEEDS TO BE ADAPTED
+env.Program(target = os.getcwd() + "/build/main", source = ["DeductTest.cpp"])
+
+# http://stackoverflow.com/questions/11070339/scons-running-program-after-compilation
+# use $SOURCE here to be able to launch from top directory
+
+test = Command( target = "testoutput",
+                source = os.getcwd() + "/build/main", # In a subdirectory ./main is not recognized so we use getcwd() and a build dir
+                action = ["$SOURCE > $TARGET", 
+                          "cat $TARGET"] )
+
+AlwaysBuild( test )
+
