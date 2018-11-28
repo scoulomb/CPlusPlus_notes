@@ -4,3 +4,4 @@
 *.settings.xml
 *~
 .sconsign.dblite
+*.gch
